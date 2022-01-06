@@ -1,6 +1,10 @@
 import express, { Application } from 'express';
 import cors from 'cors';
+import HTTP from 'http'
 import authRouter from '../routes/authRoutes';
+import { Server as ServerIO } from 'socket.io';
+import { socketController } from '../sockets/controller';
+import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from '../sockets/socketInterfaces';
 
 interface IApp {
     // app: Application;
@@ -15,6 +19,8 @@ interface IApp {
 class Server implements IApp {
     private app: Application;
     private port: string;
+    private server: HTTP.Server;
+    private io: ServerIO;
 
     private apiPaths = {
         users: '/api/users',
@@ -25,6 +31,9 @@ class Server implements IApp {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '3000';
+        this.server = HTTP.createServer(this.app)
+        this.io = new ServerIO<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(this.server);
+
         this.middlewares();
         this.routes();
         this.listen();
@@ -42,10 +51,12 @@ class Server implements IApp {
         this.app.use(this.apiPaths.auth, authRouter);
     }
 
-    socket() { }
+    socket() {
+        this.io.on('connection', socketController);
+    }
 
     listen() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             console.log(`Server on port ${this.port}`);
         });
     }
