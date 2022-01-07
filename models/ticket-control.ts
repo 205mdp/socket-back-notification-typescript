@@ -1,7 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 
-class Ticket {
+
+export class Ticket {
     private id: number;
     private name: string;
     desk: string;
@@ -96,9 +97,9 @@ export default class TicketControl {
         } else {
             const ticket = this.tickets.shift()!;
             ticket.desk = desk;
-            this.lastTickets.push(ticket);
+            this.lastTickets.unshift(ticket);
             if (this.lastTickets.length > 4) {
-                this.lastTickets.shift();
+                this.lastTickets.pop();
             }
             this.saveDb();
             return ticket;

@@ -19,12 +19,10 @@ socket.on('disconnect', () => {
     socketStatus.classList.remove('bg-success')
     socketStatus.classList.add("bg-danger");
     socketStatus.innerHTML = 'Offline';
-
-
 });
 
 socket.on('all-tickets', ({ allTickets }) => {
-    console.log(allTickets)
+
     let htmlElements = '';
     allTickets.forEach((ticket) => {
         const { name, desk } = ticket;
@@ -43,10 +41,11 @@ btnSubmit.addEventListener('click', (e) => {
 
 
     socket.emit('add-ticket', { name }, (payload) => {
+        const { id } = payload;
         inputName.value = '';
         btnSubmit.disabled = false;
         inputName.focus();
-        divInfo.innerHTML = `Customer ${name} added`;
+        divInfo.innerHTML = `Customer  ${name} added with id ${id}`;
         divInfo.style.display = "block";
         setTimeout(() => {
             divInfo.style.display = "none";

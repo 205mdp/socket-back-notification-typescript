@@ -6,21 +6,18 @@ socket.on('connect', () => {
 });
 
 socket.on('last-x-tickets', (payload) => {
-    console.log(payload);
+
     const { lastXTickets } = payload;
-    console.log(lastXTickets.length)
+
     if (lastXTickets.length > 0) {
         let htmlElements = '';
         lastXTickets.forEach((ticket) => {
             const { name, desk } = ticket;
-            htmlElements += `<li>${name.toUpperCase()} -  consultorio: ${desk}</li>`;
+            htmlElements += `<h2>${name.toUpperCase()} -  consultorio: ${desk}</h2>`;
         });
 
         clientsNames.innerHTML = htmlElements;
     } else {
         clientsNames.innerHTML = 'Welcome...';
     }
-
-
-
 });
