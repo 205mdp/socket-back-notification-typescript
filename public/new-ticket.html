@@ -13,6 +13,40 @@
 
 <body class="container">
     <h1>New Ticket</h1>
+    <span id="socketStatus" class="badge bg-danger">Off Line</span>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-6">
+            <form action="" class="mb-3" novalidate>
+                <div class="form-floating mb-2">
+                    <input type="text" name="name" id="name" placeholder="Client Name" class="form-control" required
+                        autofocus autocomplete="ÑÖcaswdas">
+                    <label for="name">Client Name</label>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+                <div class="d-grid">
+                    <button id='btnSubmit' class="btn btn-outline-primary" type="submit">ADD</button>
+                </div>
+            </form>
+            <div id="divInfo" style="display:none" class="alert alert-secondary" role="alert">
+
+            </div>
+        </div>
+        <div class="col-6">
+            <h2>customers</h2>
+            <h3 id="countCustomers"></h3>
+            <ul class="list-group" id="lstCustomers">
+
+            </ul>
+        </div>
+    </div>
+
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="./js/new-ticket.js"></script>
 </body>
 
 </html>

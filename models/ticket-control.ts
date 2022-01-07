@@ -13,7 +13,6 @@ class Ticket {
     }
 }
 
-interface ITicketControl { }
 
 interface ITicketData {
     lastId: number;
@@ -37,19 +36,26 @@ export default class TicketControl {
         this.today = new Date().getDate();
 
         this.init();
+
     }
 
     private init() {
-        const { today, tickets, lastTickets, lastId } = require('../data/data.json');
-        if (today === this.today) {
-            this.tickets = tickets;
-            this.lastTickets = lastTickets;
-            this.lastId = lastId;
-        }
-        else {
-            this.saveDb();
-        }
+        try {
+            const data = require('../data/data.json');
+            const { today, tickets, lastTickets, lastId } = require('../data/data.json');
+            if (today === this.today) {
+                this.tickets = tickets;
+                this.lastTickets = lastTickets;
+                this.lastId = lastId;
+            }
+            else {
 
+                this.saveDb();
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     get toJson(): ITicketData {
@@ -60,6 +66,15 @@ export default class TicketControl {
             lastTickets: this.lastTickets
         }
     }
+
+    get getLastTickets(): Ticket[] {
+        return this.lastTickets;
+    }
+
+    get getAllTickets(): Ticket[] {
+        return this.tickets;
+    }
+
     saveDb(): void {
         const dbPath = path.resolve(__dirname, '../data/data.json');
         fs.writeFile(dbPath, JSON.stringify(this.toJson), (err) => {
@@ -73,7 +88,6 @@ export default class TicketControl {
         this.tickets.push(ticket);
         this.saveDb();
         return ticket;
-
     }
 
     getTicket(desk: string): Ticket | boolean {
