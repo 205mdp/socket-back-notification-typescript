@@ -1,23 +1,66 @@
 const socket = io();
-const clientsNames = document.getElementById('clientsNames');
+
+const lstCustomers = document.getElementById('lstCustomers');
+const btnSubmit = document.getElementById('btnSubmit');
+const socketStatus = document.getElementById('socketStatus');
+const countCustomers = document.getElementById('countCustomers');
+const inputName = document.getElementById('name');
+const divInfo = document.getElementById('divInfo');
 
 socket.on('connect', () => {
-    // btnAtte.disabled = false;
+    btnSubmit.disabled = false;
+    socketStatus.classList.remove('bg-danger')
+    socketStatus.classList.add("bg-success");
+    socketStatus.innerHTML = 'Online';
 });
 
-socket.on('last-x-tickets', (payload) => {
+socket.on('disconnect', () => {
+    btnSubmit.disabled = true;
+    socketStatus.classList.remove('bg-success')
+    socketStatus.classList.add("bg-danger");
+    socketStatus.innerHTML = 'Offline';
+});
 
-    const { lastXTickets } = payload;
+socket.on('all-tickets', ({ allTickets }) => {
 
-    if (lastXTickets.length > 0) {
-        let htmlElements = '';
-        lastXTickets.forEach((ticket) => {
-            const { name, desk } = ticket;
-            htmlElements += `<h2>${name.toUpperCase()} -  consultorio: ${desk}</h2>`;
+    let htmlElements = '';
+    allTickets.forEach((ticket) => {
+        const { name, desk } = ticket;
+        htmlElements += `<li  class="list-group-item">${name.toUpperCase()} </li>`;
+    });
+    countCustomers.innerHTML = allTickets.length.toString();
+    lstCustomers.innerHTML = htmlElements;
+});
+
+btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    btnSubmit.disabled = true;
+
+
+    const name = inputName.value.trim();
+    if (name.length > 4) {
+        socket.emit('add-ticket', { name }, (payload) => {
+            const { id } = payload;
+            inputName.value = '';
+            btnSubmit.disabled = false;
+            inputName.focus();
+            divInfo.innerHTML = `Customer  ${name} added with id ${id}`;
+            divInfo.style.display = "block";
+            setTimeout(() => {
+                divInfo.style.display = "none";
+            }, 3000);
         });
-
-        clientsNames.innerHTML = htmlElements;
     } else {
-        clientsNames.innerHTML = 'Welcome...';
+        btnSubmit.disabled = false;
+        inputName.focus();
+        divInfo.innerHTML = `Customer  ${name} is invalid`;
+        divInfo.style.display = "block";
+        setTimeout(() => {
+            divInfo.style.display = "none";
+        }, 3000);
     }
+
+
 });
+
+

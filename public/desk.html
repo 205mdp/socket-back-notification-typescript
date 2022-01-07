@@ -12,20 +12,43 @@
 </head>
 
 <body class="container">
-    <h1 id="h1Title">Desk</h1>
-    <span id="socketStatus" class="badge bg-danger">Off Line</span>
+    <nav class="navbar sticky-top navbar-light mb-2" style="background-color: #f3f3f3;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ticket line App</a>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="./index.html">Add Ticket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="./desk.html">Desk/Box</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./public.html">Public</a>
+                </li>
+
+            </ul>
+            <div class="d-flex">
+                <span id="socketStatus" class="badge bg-danger ">Off Line</span>
+            </div>
+
+        </div>
+    </nav>
+    <h3 id="h1Title">Desk</h3>
     <hr>
     <div class="row">
         <div class="col-6">
-            <input type="text" name="desk" id="inputDeskNumber" class="form-control mb-2" placeholder="Desk number"
-                autofocus>
+            <input type="text" name="desk" id="inputDeskNumber" class="form-control mb-2"
+                placeholder="Desk number and press ENTER" autofocus>
 
 
-            <button id="btnNextCustomer" class="btn btn-outline-primary">Next Customer</button>
+            <button id="btnNextCustomer" class="btn btn-outline-primary mb-3">Next Customer</button>
 
             <h3 id="lblCustomer"></h3>
+
+
             <h3 id="lblCustomerError"></h3>
         </div>
+
         <div class="col-6">
             <h2>Customer: <span id='spnCount'></span></h2>
         </div>
