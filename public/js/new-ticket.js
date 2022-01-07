@@ -36,21 +36,31 @@ btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     btnSubmit.disabled = true;
 
-    inputName.value = inputName.value.trim();
+
     const name = inputName.value.trim();
-
-
-    socket.emit('add-ticket', { name }, (payload) => {
-        const { id } = payload;
-        inputName.value = '';
+    if (name.length > 4) {
+        socket.emit('add-ticket', { name }, (payload) => {
+            const { id } = payload;
+            inputName.value = '';
+            btnSubmit.disabled = false;
+            inputName.focus();
+            divInfo.innerHTML = `Customer  ${name} added with id ${id}`;
+            divInfo.style.display = "block";
+            setTimeout(() => {
+                divInfo.style.display = "none";
+            }, 3000);
+        });
+    } else {
         btnSubmit.disabled = false;
         inputName.focus();
-        divInfo.innerHTML = `Customer  ${name} added with id ${id}`;
+        divInfo.innerHTML = `Customer  ${name} is invalid`;
         divInfo.style.display = "block";
         setTimeout(() => {
             divInfo.style.display = "none";
         }, 3000);
-    });
+    }
+
+
 });
 
 

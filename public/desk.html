@@ -12,17 +12,19 @@
 </head>
 
 <body class="container">
-    <h1>Desk</h1>
+    <h1 id="h1Title">Desk</h1>
     <span id="socketStatus" class="badge bg-danger">Off Line</span>
     <hr>
     <div class="row">
         <div class="col-6">
-            <input type="text" name="desk" id="inputDeskNumber" class="form-control" placeholder="Desk number">
+            <input type="text" name="desk" id="inputDeskNumber" class="form-control mb-2" placeholder="Desk number"
+                autofocus>
 
 
             <button id="btnNextCustomer" class="btn btn-outline-primary">Next Customer</button>
 
-            <h3 id="lblCustomer">German Paak</h3>
+            <h3 id="lblCustomer"></h3>
+            <h3 id="lblCustomerError"></h3>
         </div>
         <div class="col-6">
             <h2>Customer: <span id='spnCount'></span></h2>
