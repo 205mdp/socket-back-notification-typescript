@@ -2,13 +2,11 @@
 html, body {
     height: 100%;
     width: 100%;
-
     background-color: blue;
     color: white;
     text-align: center;
-
-   background: rgb(10,24,33);
-background: linear-gradient(90deg, rgba(10,24,33,1) 0%, rgba(47,89,115,1) 74%, rgba(0,212,255,1) 100%);
+    background: rgb(10,24,33);
+    background: linear-gradient(90deg, rgba(10,24,33,1) 0%, rgba(47,89,115,1) 74%, rgba(0,212,255,1) 100%);
 }
 
 
@@ -16,8 +14,8 @@ background: linear-gradient(90deg, rgba(10,24,33,1) 0%, rgba(47,89,115,1) 74%, r
     display: flex  ;
     flex-flow: row wrap;
 }
+
 .first {
-   
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +23,7 @@ background: linear-gradient(90deg, rgba(10,24,33,1) 0%, rgba(47,89,115,1) 74%, r
     height: 100vh;
     /* background-color: #2F5973; */
     font-size: 50px;
- font-weight: bolder;
+    font-weight: bolder;
 }
 .second {
     width: 25%;
@@ -42,4 +40,3 @@ background: linear-gradient(90deg, rgba(10,24,33,1) 0%, rgba(47,89,115,1) 74%, r
     font-size: 22px;
     font-weight: bolder;
 }
-

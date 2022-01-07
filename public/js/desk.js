@@ -1,6 +1,5 @@
 const socket = io();
 
-
 const socketStatus = document.getElementById('socketStatus');
 const spnCount = document.getElementById('spnCount');
 const btnNextCustomer = document.getElementById('btnNextCustomer');

@@ -44,6 +44,4 @@ export const socketController = (socket: Socket, io: Server) => {
             });
         }
     })
-
-
 }

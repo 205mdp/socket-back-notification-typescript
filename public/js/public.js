@@ -34,7 +34,6 @@ socket.on('last-x-tickets', (payload) => {
         second.style.display = '';
 
         const audio = new Audio('./sound/notification.mp3');
-
         audio.play();
 
     } else {
