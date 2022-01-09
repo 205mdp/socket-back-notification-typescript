@@ -4,7 +4,6 @@ import HTTP from 'http'
 import authRouter from '../routes/authRoutes';
 import { Server as ServerIO } from 'socket.io';
 import { socketController } from '../sockets/controller';
-import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from '../sockets/socketInterfaces';
 
 interface IApp {
     // app: Application;
@@ -32,7 +31,7 @@ class Server implements IApp {
         this.app = express();
         this.port = process.env.PORT || '3000';
         this.server = HTTP.createServer(this.app)
-        this.io = new ServerIO<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(this.server);
+        this.io = new ServerIO(this.server);
 
         this.middlewares();
         this.routes();
@@ -53,6 +52,7 @@ class Server implements IApp {
 
     socket() {
         this.io.on('connection', (socket) => socketController(socket, this.io));
+        
     }
 
     listen() {

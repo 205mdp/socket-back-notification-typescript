@@ -38,10 +38,24 @@ export const socketController = (socket: Socket, io: Server) => {
             socket.broadcast.emit('last-x-tickets', { lastXTickets: tickeControl.getLastTickets });
             socket.broadcast.emit('all-tickets', { allTickets: tickeControl.getAllTickets });
             io.emit('count-ticket', { count: tickeControl.getAllTickets.length });
+            // Raspberry Pi Led Control
+            if (process.env.PI === '1') {
+                const Gpio = require('onoff').Gpio;
+                let LED = new Gpio(4, 'out');
+                LED.writeSync(1);
+                setTimeout(() => {
+                    LED.writeSync(0);
+                    LED.unexport();
+                }, 1000);
+            }
+
             return callback({
                 ok: true,
                 ticket: <Ticket>ticket!
             });
         }
-    })
+    });
+
+
+
 }
