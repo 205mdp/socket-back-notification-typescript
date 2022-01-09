@@ -59,7 +59,8 @@ Everything related to socket.io from the server is controlled from sockets/contr
 
 - Install OS-Linux based. 
 - Install Node. 
-- Connect GPIO 4 (pin 7) to a led and 68 ohm resistence  
+- Connect GPIO 4 (pin 7) to a led and 68 ohm resistence.
+<img src="docs/img/img_raspberrypi3_led_simple.png" alt="online" width="250"/>
 
 # Documentation. 
 https://nodejs.org/es/
